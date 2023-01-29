@@ -31,7 +31,7 @@ impl CostFunction for Logistic {
                 wx += p[j] * self.matx[[i, j]];
             }
             let yi = f64::from(self.y[i]);
-            sum += f64::ln(1.0 + f64::exp(wx)) - yi * wx;
+            sum += (1.0 + wx.exp()).ln() - yi * wx;
         }
 
         Ok(sum)
@@ -53,7 +53,7 @@ impl Gradient for Logistic {
             let yi = f64::from(self.y[i]);
 
             for j in 0..self.n {
-                let p = 1.0 / (1.0 + f64::exp(-wx));
+                let p = 1.0 / (1.0 + (-wx).exp());
                 g[j] += self.matx[[i, j]] * (p - yi);
             }
         }
