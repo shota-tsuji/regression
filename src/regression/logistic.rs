@@ -53,7 +53,7 @@ impl Gradient for Logistic {
             let yi = f64::from(self.y[i]);
 
             for j in 0..self.n {
-                let p = 1.0 / (1.0 + f64::exp(-wx));
+                let p = 1.0 / (1.0 + (-wx).exp());
                 g[j] += self.matx[[i, j]] * (p - yi);
             }
         }
